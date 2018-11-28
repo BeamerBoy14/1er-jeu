@@ -1,0 +1,46 @@
+<script src="Acteur.js"></script>
+<script src="Scene.js"></script>
+<script src="Sol.js"></script>
+<script src="AcPhysic.js"></script>
+<div id="TerrainDeJeu"></div>
+
+<script>
+    //on crée une scène
+    var scene = new Scene();
+
+    //test d'instanciation  de la classe acteur
+    var a1 = new Acteur("images/ballerouge.png",200,100);
+    scene.add(a1);
+
+    //test instanciation de la classe sol
+    scene.add(new Sol(232, 200));
+
+    //test methode moveTo
+    a1.moveTo(200, 100);
+    
+    
+    //test instanciation de la classe AcPhysic
+    var b = new AcPhysic(
+        "images/ballerouge.png", 
+        232, 300,
+        2,-7,
+        0,0.01);
+
+    scene.add(b);
+    scene.add(new AcPhysic("images/ballerouge.png", 264,300,1,-10,0,0.1))
+    for(var i=0; i<10; i++){
+        scene.add(new AcPhysic("images/ballerouge.png",
+        264,600,
+        Math.random() * 6 - 6,Math.random()*-10,
+        0,0.1
+        ));
+    }
+
+    //création d'un timer tous les 10 ms
+    var xb = 200;
+    setInterval(function()
+    {
+        scene.onTimer();
+    }, 10);
+
+</script>
