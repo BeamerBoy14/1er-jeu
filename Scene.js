@@ -22,4 +22,14 @@ class Scene
             this.lesActeurs[i].onTimer();
         }
     }
+
+    //La méthode onKeyDown est appelée à chaque frappe du clavier et propage l'événement à tous les acteurs de la scène.
+    onKeyDown(keyCode)
+    {
+        //Parcours le tableau lesActeurs et appele pour chacun sa méthode onKeyDown
+        for(var i=0; i < this.lesActeurs.length; i++)
+        {
+            this.lesActeurs[i].onKeyDown(keyCode);
+        }
+    }
 }

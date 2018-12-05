@@ -13,4 +13,25 @@ class Bonhomme extends AcAnimated
 
         this.setRange(0,2);
     }
+
+    onKeyDown(keyCode)
+    {
+        if(keyCode == 37) //Flèche gauche
+        {
+            this.vx = -1;
+            this.setRange(3,5);
+            this.periode = 20;
+        }
+        else if(keyCode == 39) //Flèche droit
+        {
+            this.vx = 1;
+            this.setRange(0,2);
+            this.periode = 20;
+        }
+        else if(keyCode == 32) //Espace
+        {
+            this.vx = 0;
+            this.periode = 20000000000000000000000;
+        }
+    }
 }

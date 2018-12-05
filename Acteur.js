@@ -37,4 +37,10 @@
         {
 
         }
+
+        //Cette méthode est apppelée à chaque frappe du clavier. L'argument keyCode contient la valeur ASCII de la touche enfoncée
+        onKeyDown(keyCode)
+        {
+            
+        }
     }

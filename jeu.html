@@ -6,9 +6,7 @@
 <script src="AcAnimated.js"></script>
 <script src="Eau.js"></script>
 <script src="Bonhomme.js"></script>
-<div id="TerrainDeJeu"></div>
-
-<div id="TerrainDeJeu" keydown="onKeyDown(event)"></div>
+<div id="TerrainDeJeu" onkeydown="onKeyDown(event)"></div>
 
 <script>
     //on crée une scène
@@ -60,14 +58,14 @@
 
     //création d'un timer tous les 10 ms
     var xb = 200;
-    setInterval(function()
-    {
+    setInterval(() => {
         scene.onTimer();
     }, 10);
 
     //Gestion des touches du clavier.
     document.onkeydown = function (event)
     {
-        alert(event.keyCode);
+        scene.onKeyDown(event.keyCode);
+        return false;
     }
 </script>
