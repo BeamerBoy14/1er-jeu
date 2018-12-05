@@ -4,6 +4,7 @@
 <script src="AcPhysic.js"></script>
 <script src="Balle.js"></script>
 <script src="AcAnimated.js"></script>
+<script src="Eau.js"></script>
 <div id="TerrainDeJeu"></div>
 
 <script>
@@ -58,11 +59,7 @@
     //création d'un petit lac
     for(var i=0; i<10; i++)
     {
-        scene.add(new AcAnimated([
-        "images/eau1.bmp",
-        "images/eau2.bmp"],
-        x, 332, 0, 0, 0, 0,
-        20));
+        scene.add(new Eau(x, 332));
         x += 32;
     }
 
