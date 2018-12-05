@@ -46,7 +46,25 @@
         "images/bonhommegauche2.png",
         "images/bonhommegauche3.png"],
         400,300,1,0,0,0,20);
+    bonhomme.setRange(0,2);
     scene.add(bonhomme);
+
+    //Création d'un sol a cote du lac.
+    var x=200;
+    for(var i=0; i<20; i++){
+        scene.add(new Sol(x,332));
+        x+= 32;
+    }
+    //création d'un petit lac
+    for(var i=0; i<10; i++)
+    {
+        scene.add(new AcAnimated([
+        "images/eau1.bmp",
+        "images/eau2.bmp"],
+        x, 332, 0, 0, 0, 0,
+        20));
+        x += 32;
+    }
 
     //création d'un timer tous les 10 ms
     var xb = 200;
