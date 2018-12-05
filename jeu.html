@@ -2,6 +2,8 @@
 <script src="Scene.js"></script>
 <script src="Sol.js"></script>
 <script src="AcPhysic.js"></script>
+<script src="Balle.js"></script>
+<script src="AcAnimated.js"></script>
 <div id="TerrainDeJeu"></div>
 
 <script>
@@ -18,23 +20,33 @@
     //test methode moveTo
     a1.moveTo(200, 100);
     
-    
     //test instanciation de la classe AcPhysic
-    var b = new AcPhysic(
+    var b = new Balle(
         "images/ballerouge.png", 
         232, 300,
-        2,-7,
+        2,-3,
         0,0.01);
 
     scene.add(b);
-    scene.add(new AcPhysic("images/ballerouge.png", 264,300,1,-10,0,0.1))
+
+    //explosion de balle
+    scene.add(new Balle("images/ballerouge.png", 264,300,1,-10,0,0.1))
     for(var i=0; i<10; i++){
         scene.add(new AcPhysic("images/ballerouge.png",
         264,600,
-        Math.random() * 6 - 6,Math.random()*-10,
-        0,0.1
-        ));
+        Math.random() * 6 - 6,Math.random()*-10));
     }
+
+    //test d'un acAnimated
+    var bonhomme = new AcAnimated([
+        "images/bonhommedroite1.png",
+        "images/bonhommedroite2.png",
+        "images/bonhommedroite3.png",
+        "images/bonhommegauche1.png",
+        "images/bonhommegauche2.png",
+        "images/bonhommegauche3.png"],
+        400,300,1,0,0,0,20);
+    scene.add(bonhomme);
 
     //création d'un timer tous les 10 ms
     var xb = 200;
