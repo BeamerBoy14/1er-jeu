@@ -5,7 +5,10 @@
 <script src="Balle.js"></script>
 <script src="AcAnimated.js"></script>
 <script src="Eau.js"></script>
+<script src="Bonhomme.js"></script>
 <div id="TerrainDeJeu"></div>
+
+<div id="TerrainDeJeu" keydown="onKeyDown(event)"></div>
 
 <script>
     //on crée une scène
@@ -39,15 +42,7 @@
     }
 
     //test d'un acAnimated
-    var bonhomme = new AcAnimated([
-        "images/bonhommedroite1.png",
-        "images/bonhommedroite2.png",
-        "images/bonhommedroite3.png",
-        "images/bonhommegauche1.png",
-        "images/bonhommegauche2.png",
-        "images/bonhommegauche3.png"],
-        400,300,1,0,0,0,20);
-    bonhomme.setRange(0,2);
+    var bonhomme = new Bonhomme(400,300);
     scene.add(bonhomme);
 
     //Création d'un sol a cote du lac.
@@ -70,4 +65,9 @@
         scene.onTimer();
     }, 10);
 
+    //Gestion des touches du clavier.
+    document.onkeydown = function (event)
+    {
+        alert(event.keyCode);
+    }
 </script>
