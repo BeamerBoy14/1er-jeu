@@ -6,6 +6,7 @@
 <script src="AcAnimated.js"></script>
 <script src="Eau.js"></script>
 <script src="Bonhomme.js"></script>
+<script src="mur.js"></script>
 <div id="TerrainDeJeu" onkeydown="onKeyDown(event)"></div>
 
 <script>
@@ -55,6 +56,10 @@
         scene.add(new Eau(x, 332));
         x += 32;
     }
+
+    //Ajoutd'un mur
+    scene.add(new Mur(x, 300));
+    scene.add(new Mur(x, 268));
 
     //création d'un timer tous les 10 ms
     var xb = 200;
