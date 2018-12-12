@@ -32,4 +32,19 @@ class Scene
             this.lesActeurs[i].onKeyDown(keyCode);
         }
     }
+
+    whoIsCollisioningwith(unActeur)
+    {
+        const acteurs = new Array();
+
+        this.lesActeurs.forEach((mouv)=>{
+            var acteur = unActeur.isCollisioningwith(mouv);
+
+            if(acteur && (mouv != unActeur))
+            {
+                acteurs.push(mouv);
+            }
+        });
+        return acteurs.length;
+    }
 }
