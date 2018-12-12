@@ -41,13 +41,13 @@
         isCollisioningwith(unActeur)
         {
             //Cas ou unActeur est à gauche du bord de this
-            if(unActeur.x + unActeur.width < this.x) return false;
+            if(unActeur.x + unActeur.width <= this.x) return false;
             //Cas ou unActeur est à droit du bord de this
-            if(unActeur.x > unActeur.width + this.x) return false;
+            if(unActeur.x >= unActeur.width + this.x) return false;
             //Cas ou unActeur est au dessus du bord superieur de this
-            if(unActeur.y + unActeur.height < this.y) return false;
+            if(unActeur.y + unActeur.height <= this.y) return false;
             //Cas ou unActeur est en dessous du bord inférieur de this
-            if(unActeur.y > unActeur.height + this.y) return false;
+            if(unActeur.y >= unActeur.height + this.y) return false;
             //Le reste des cas ne sont que des collisons
             return true;
         }

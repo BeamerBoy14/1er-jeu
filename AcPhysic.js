@@ -15,6 +15,14 @@ class AcPhysic extends Acteur
     //La méthode onTimer simule le mouvement d'un point à partir des lois de la mécanique classique du point
     onTimer()
     {
+        this.x += this.vx;
+        var collision = scene.whoIsCollisioningwith(this)
+        this.x-= this.vx;
+
+        if(collision > 0)
+        {
+            this.vx=0;
+        }
         //On incrémente la position à partir de la vitesse
         this.moveTo(this.x + this.vx, this.y + this.vy);
 
