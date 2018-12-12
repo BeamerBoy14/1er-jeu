@@ -74,5 +74,15 @@
         return false;
     }
 
-    
+    var mur8 =(new Mur(300,300));
+    var mur9 =(new Mur(300,268));
+
+    scene.add(mur8);
+    scene.add(mur9);
+
+    if(mur8.isCollisioningwith(mur9) == true)
+    {
+        alert("collision !")
+    }
+
 </script>
