@@ -23,6 +23,7 @@
     //test methode moveTo
     a1.moveTo(200, 100);
     
+/*
     //test instanciation de la classe AcPhysic
     var b = new Balle(
         "images/ballerouge.png", 
@@ -39,7 +40,7 @@
         264,600,
         Math.random() * 6 - 6,Math.random()*-10));
     }
-
+*/
     //test d'un acAnimated
     var bonhomme = new Bonhomme(400,300);
     scene.add(bonhomme);
@@ -80,6 +81,6 @@
     scene.add(mur8);
     scene.add(mur9);
 
-    alert(scene.whoIsCollisioningwith(mur8));
+    console.log(scene.whoIsCollisioningwith(mur8));
 
 </script>

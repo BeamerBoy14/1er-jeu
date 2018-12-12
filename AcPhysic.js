@@ -16,13 +16,23 @@ class AcPhysic extends Acteur
     onTimer()
     {
         this.x += this.vx;
-        var collision = scene.whoIsCollisioningwith(this)
-        this.x-= this.vx;
-
+        var collision = scene.whoIsCollisioningwith(this);
+        this.x -= this.vx;
+        
         if(collision > 0)
         {
             this.vx=0;
         }
+
+        this.y += this.vy;
+        var collision = scene.whoIsCollisioningwith(this);
+        this.y -= this.vy;
+        
+        if(collision > 0)
+        {
+            this.vy=0;
+        }
+        
         //On incrémente la position à partir de la vitesse
         this.moveTo(this.x + this.vx, this.y + this.vy);
 

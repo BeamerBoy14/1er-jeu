@@ -47,4 +47,11 @@ class Scene
         });
         return acteurs.length;
     }
+
+    remove()
+    {
+        this.lesActeurs.forEach((acteur) => {
+            
+        });
+    }
 }
