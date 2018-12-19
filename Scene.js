@@ -48,10 +48,15 @@ class Scene
         return acteurs.length;
     }
 
-    remove()
+    remove (unActeur)
     {
-        this.lesActeurs.forEach((acteur) => {
-            
-        });
+        var len = this.lesActeurs.length;
+
+        for (var i = 0; i < len; i++) {
+            if (unActeur == this.lesActeurs[i]) {
+                unActeur.onRemove();
+                delete this.lesActeurs[i];
+            }
+        }
     }
 }

@@ -63,4 +63,11 @@
         {
             
         }
+
+        onRemove()
+        {
+            var terrain = document.getElementById("TerrainDeJeu");
+            terrain.removeChild(this.img);
+            this.img = null;
+        }
     }

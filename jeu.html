@@ -18,7 +18,7 @@
     scene.add(a1);
 
     //test instanciation de la classe sol
-    scene.add(new Sol(232, 200));
+    //scene.add(new Sol(232, 200));
 
     //test methode moveTo
     a1.moveTo(200, 100);
@@ -39,8 +39,10 @@
         scene.add(new AcPhysic("images/ballerouge.png",
         264,600,
         Math.random() * 6 - 6,Math.random()*-10));
-    }
+    } 
 */
+    scene.remove(a1);
+
     //test d'un acAnimated
     var bonhomme = new Bonhomme(400,300);
     scene.add(bonhomme);
@@ -82,5 +84,5 @@
     scene.add(mur9);
 
     console.log(scene.whoIsCollisioningwith(mur8));
-
+    scene.remove(a1);
 </script>
