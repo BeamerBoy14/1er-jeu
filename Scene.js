@@ -1,62 +1,90 @@
+
+
 class Scene
 {
-    constructor(fichierImage, x, y, vx=0, vy=0, ax=0, ay=0)
+    constructor( x, y, width, height )
     {
-        //on crée l'attribut lesActeurs initilisé avec la référence d'un tableau stockant les référence de tous les acteeurs présent 
-        //dans la scène
-        this.lesActeurs = new Array();
+        // On cree l'attribut lesActeurs initialisé avec la 
+        // référence d'un tableau stockant les références de tous 
+        // les acteurs présents dans la scène.
+        this.lesActeurs = new Array() ;
+
+        this.x = x ;
+        this.y = y ;
+        this.width = width ;
+        this.height = height ;
     }
 
-    add(unActeur)
+    add( unActeur )
     {
-        //ajout la référnece de l'acteur dans la scène
-        this.lesActeurs.push(unActeur);
+        // Réutilisation des cases vides.
+        // On cherche la première case vide du tableau et on lui affecte
+        // la référence du nouvel acteur.
+        for( var i=0; i<this.lesActeurs.length; i++ )
+        {
+            if( !this.lesActeurs[i] )
+            {
+                this.lesActeurs[i] = unActeur ;
+                return ;
+            }
+        }
+        
+        // Ajoute la référence de l'acteur dans la scene
+        this.lesActeurs.push( unActeur ) ;
     }
 
-    //La méthode onTimer simule le mouvement d'un point à partir des lois de la mécanique classique du point
+    remove( unActeur )
+    {
+        // Demande à l'acteur de libérer ses ressources
+        unActeur.onRemove() ;
+
+        // Recherche du n° de la case du tableau lesActeurs qui contient
+        // la référence de l'acteur à supprimer
+        var i = this.lesActeurs.indexOf( unActeur ) ;
+        this.lesActeurs[i] = null ;
+    }
+
+    whoIsCollisioningWith( unActeur )
+    {
+        var collisions = [] ;
+
+        for( var i=0; i<this.lesActeurs.length; i++ )
+        {
+            if( this.lesActeurs[i] && this.lesActeurs[i] != unActeur )
+            {
+                if( unActeur.isCollisioningWith( this.lesActeurs[i]) )
+                {
+                    collisions.push( this.lesActeurs[i] ) ;
+                }
+            }
+        }
+        return collisions ;
+    }
+
+    // La méthode onTimer simule le mouvement d'un point
+    // à partir des lois de la mécanique classique du point
     onTimer()
     {
-        //Parcours le tableau lesActeurs et appele pour chacun sa méthode onTimer
-        for(var i=0; i<this.lesActeurs.length; i++)
+        // Parcours le tableau lesActeurs et appele pour
+        // chacun sa méthode onTimer
+        for( var i=0; i<this.lesActeurs.length; i++ )
         {
-            this.lesActeurs[i].onTimer();
+            if( this.lesActeurs[i] ) // <=> this.lesActeurs[i] != null
+                this.lesActeurs[i].onTimer( this ) ;
         }
     }
 
-    //La méthode onKeyDown est appelée à chaque frappe du clavier et propage l'événement à tous les acteurs de la scène.
-    onKeyDown(keyCode)
+    // La méthode onKeyDown est appelée à chaque frappe du clavier
+    // et propage l'événement à tous les acteurs de la scène.
+    onKeyDown( keyCode )
     {
-        //Parcours le tableau lesActeurs et appele pour chacun sa méthode onKeyDown
-        for(var i=0; i < this.lesActeurs.length; i++)
+        // Parcours le tableau lesActeurs et appele pour
+        // chacun sa méthode onKeyDown
+        for( var i=0; i<this.lesActeurs.length; i++ )
         {
-            this.lesActeurs[i].onKeyDown(keyCode);
+            if( this.lesActeurs[i] ) // <=> this.lesActeurs[i] != null
+                this.lesActeurs[i].onKeyDown( this, keyCode ) ;
         }
     }
 
-    whoIsCollisioningwith(unActeur)
-    {
-        const acteurs = new Array();
-
-        this.lesActeurs.forEach((mouv)=>{
-            var acteur = unActeur.isCollisioningwith(mouv);
-
-            if(acteur && (mouv != unActeur))
-            {
-                acteurs.push(mouv);
-            }
-        });
-        return acteurs.length;
-    }
-
-    remove (unActeur)
-    {
-        var len = this.lesActeurs.length;
-
-        for (var i = 0; i < len; i++) {
-            if (unActeur == this.lesActeurs[i]) {
-                unActeur.onRemove();
-                delete this.lesActeurs[i];
-            }
-        }
-    }
 }

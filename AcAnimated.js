@@ -1,69 +1,88 @@
+
+
 class AcAnimated extends AcPhysic
 {
-    //fichierImages:tableau conteneant des noms de fichier d'image
-    // x,y position de l'acteur
-    // vx,vy: vitesse
-    // ax,ay: acceleration
-    //periode: temp entre chaque changementd'image exprimé
-    //en nombre d'appel de la méthode onTimer()
-    constructor(fichierImages, x,y,vx,vy,ax,ay,periode)
+    // fichierImages: tableau contenant des noms de fichier d'image
+    // x,y: Position de l'acteur
+    // vx, vy: Vitesse
+    // ax, ay: Accelération
+    // periode: Temps entre chaque changement d'image exprimé
+    // en nombre d'appel de la méthode onTimer()
+    constructor( fichierImages, x, y, vx, vy, ax, ay, periode )
     {
-        //appel de contructeur de la classe mère
-        super(fichierImages[0],x,y,vx,vy,ax,ay);
+        // Appel du constructeur de la classe mère
+        super( fichierImages[0], x, y, vx, vy, ax, ay ) ;
 
-        //cree un attribut pour stocker le tableau des noms d'images
-        this.fichierImages = fichierImages;
+        // Cree un attribut pour stocker le tableau des noms d'image
+        this.fichierImages = fichierImages ;
 
-        //Créer un attributpour stocker la periode.
-        this.periode = periode;
+        // Cree un attribut pour stocker la periode
+        this.periode = periode ;
 
-        // Crée et initialise un attribut contenant l'indice de l'image courante.
-        this.currentIndex = 0;
+        // Cree et initialise un attribut contenant l'indice de l'image
+        // courante
+        this.currentIndex = 0 ;
 
-        //Crée et initialise un attribut pour comptet le nombre d'exécution de la méthode onTimer.
-        this.nbExecutionDeOnTimer = 0;
+        // Cree et initialise un attribut pour compter le nombre
+        // d'exécution de la méthode onTimer
+        this.nbExecutionDeOnTimer = 0 ;
 
-        //Crée les attributs permettant de borner les indexdes images utilisées.
-        this.startIndex = 0;
-        this.endIndex = this.fichierImages.length - 1;
+        // Cree les attributs permettant de borner les index des images
+        // utilisées.
+        this.startIndex = 0 ;
+        this.endIndex = this.fichierImages.length-1 ;
     }
 
-    setRange(startIndex, endIndex)
+    onTimer( uneScene )
     {
-        //Mise à jour des attributs.
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
+        // Appel de la méthode onTimer de la classe AcPhysic
+        // afin de récupérer le comportement issue de la classe mère.
+        AcPhysic.prototype.onTimer.call( this, uneScene ) ;
 
-        //mise à jour des currentIndexpour démarrer avec la bonne image.
-        this.currentIndex = this.startIndex;
-    }
+        // Traitement d'animation
 
-    onTimer()
-    {
-        //Appel de la méthode onTimer de la classe Acphysic
-        //afin de récuperer le comportement issue de la classe mère.
-        AcPhysic.prototype.onTimer.call(this);
-
-        //Traitemeant d'animations.
-        if(this.nbExecutionDeOnTimer >= this.periode)
+        if( this.nbExecutionDeOnTimer >= this.periode )
         {
-            this.nbExecutionDeOnTimer = 0;
+            // Remise à 0 du compteur
+            this.nbExecutionDeOnTimer = 0 ;
 
-            //Copie du nom de fichier d'image courrant dnas la propriété src de l'image.
-            this.img.src = this.fichierImages[this.currentIndex];
+            // Copie du nom de fichier d'image courrant dans
+            // la propriété src de l'image.
+            this.img.src = this.fichierImages[this.currentIndex] ;
 
-            //Incrémente l'index courrant d'image pour passer a l'image suivante.
-            this.currentIndex++;
+            // Incremente l'index courrant d'image pour passer à l'image
+            // suivante.
+            this.currentIndex++ ;
 
-            //Remise a 0 de l'index courrant d'image quand on arrive après la dernieère case du tableau.
-            if(this.currentIndex > this.endIndex)
-            {
-                this.currentIndex = this.startIndex;
-            }
-
+            // Remise a 0 de l'index courrant d'image quand on arrive
+            // après la derniere case du tableau
+            if( this.currentIndex > this.endIndex )
+                this.currentIndex = this.startIndex ;
         }
 
-        //Comptage du nombre d'exécution.
-        this.nbExecutionDeOnTimer++;
+        // Comptage du nombre d'exécution
+        this.nbExecutionDeOnTimer++ ;
+    }
+
+    setRange( startIndex, endIndex )
+    {
+        // Mise à jour des attributs
+        this.startIndex = startIndex ;
+        this.endIndex = endIndex ;
+
+        // Mise a de currentIndex pour démarrer avec la bonne image
+        this.currentIndex = this.startIndex ;
+    }
+
+        // Cette méthode est appellée à la suppression de l'acteur
+    // et elle se charge de libérer toutes les ressouces utilisées par ce dernier.
+    onRemove()
+    {
+        // Supprime l'image courante
+        Acteur.prototype.onRemove.call( this ) ;
+
+        // Supprime le tableau contenant les nom de fichier
+        // d'image.
+        this.fichierImages = null ;
     }
 }

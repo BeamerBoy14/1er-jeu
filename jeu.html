@@ -1,3 +1,4 @@
+
 <script src="Acteur.js"></script>
 <script src="Scene.js"></script>
 <script src="Sol.js"></script>
@@ -6,83 +7,87 @@
 <script src="AcAnimated.js"></script>
 <script src="Eau.js"></script>
 <script src="Bonhomme.js"></script>
-<script src="mur.js"></script>
-<div id="TerrainDeJeu" onkeydown="onKeyDown(event)"></div>
+<script src="Mur.js"></script>
+
+
+<div id="TerrainDeJeu"></div>
 
 <script>
-    //on crée une scène
-    var scene = new Scene();
+    // On cree une scène
+    var scene = new Scene( 100, 50, 1000, 600 ) ;
 
-    //test d'instanciation  de la classe acteur
-    var a1 = new Acteur("images/ballerouge.png",200,100);
-    scene.add(a1);
+    /*
+    // Test d'instanciation de la classe Acteur
+    scene.add( new Acteur( "images/sol.png", 200, 200 ) ) ;
 
-    //test instanciation de la classe sol
-    //scene.add(new Sol(232, 200));
+    var a2 = new Acteur( "images/balleRouge.png", 200, 100 ) ;
+    scene.add( a2 ) ;
+    // Test de la méthode moveTo
+    a2.moveTo( 200, 300 ) ;
 
-    //test methode moveTo
-    a1.moveTo(200, 100);
+    //Test d'instanciation de la classe Sol
+    scene.add( new Sol( 232, 200 ) ) ;
+
+    // Test d'instaciation de la classe AcPhysic
+    var b = new AcPhysic( 
+        "images/balleRouge.png", 
+        232, 600,
+        2,-10,
+        0,0.1 ) ;
     
-/*
-    //test instanciation de la classe AcPhysic
-    var b = new Balle(
-        "images/ballerouge.png", 
-        232, 300,
-        2,-3,
-        0,0.01);
+    scene.add( b ) ;
 
-    scene.add(b);
+    scene.add( new AcPhysic( "images/balleRouge.png", 264, 600, -2, -10, 0, 0.1)) ;
 
-    //explosion de balle
-    scene.add(new Balle("images/ballerouge.png", 264,300,1,-10,0,0.1))
-    for(var i=0; i<10; i++){
-        scene.add(new AcPhysic("images/ballerouge.png",
-        264,600,
-        Math.random() * 6 - 6,Math.random()*-10));
-    } 
-*/
-    scene.remove(a1);
-
-    //test d'un acAnimated
-    var bonhomme = new Bonhomme(400,300);
-    scene.add(bonhomme);
-
-    //Création d'un sol a cote du lac.
-    var x=200;
-    for(var i=0; i<20; i++){
-        scene.add(new Sol(x,332));
-        x+= 32;
-    }
-    //création d'un petit lac
-    for(var i=0; i<10; i++)
+    // Explosion de balles
+    for( var i=0; i<10 ; i++ )
     {
-        scene.add(new Eau(x, 332));
-        x += 32;
+        scene.add( new Balle( 
+            264, 600,
+            Math.random() * 6 - 3, Math.random() * -10 )) ;
     }
+    */
 
-    //Ajoutd'un mur
-    scene.add(new Mur(500, 300));
-    scene.add(new Mur(500, 268));
+    var m = new Mur( 500, 10 ) ;
+    scene.add( m ) ;
+    scene.remove( m ) ;
 
-    //création d'un timer tous les 10 ms
-    var xb = 200;
-    setInterval(() => {
-        scene.onTimer();
-    }, 10);
 
-    //Gestion des touches du clavier.
-    document.onkeydown = function (event)
+    // Test d'un bohomme
+    var bonhomme = new Bonhomme( 400, 299 ) ;
+
+    scene.add( bonhomme ) ;
+
+    var x = 200 ;
+
+    // Ajout d'un mur
+    scene.add( new Mur( x+8*32, 300 )) ;
+    scene.add( new Mur( x+8*32, 268 )) ;
+
+    // Creation d'un sol
+    for( var i=0 ; i<20 ; i++ )
     {
-        scene.onKeyDown(event.keyCode);
-        return false;
+        scene.add( new Sol( x, 332 ) ) ;
+        x += 32 ;
+    }
+    
+    //Creation d'un petit lac
+    for( var i=0 ; i<10 ; i++ )
+    {
+        scene.add( new Eau( x, 332 ) ) ;
+        x += 32 ;
     }
 
-    var mur8 =(new Mur(300,300));
-    var mur9 =(new Mur(300,268));
+    // Creation d'un timer tous les 10 ms
+    setInterval( function()
+    {
+        scene.onTimer() ;
+    }, 10 ) ;
 
-    scene.add(mur8);
-    scene.add(mur9);
-
-    console.log(scene.whoIsCollisioningwith(mur8));
-    scene.remove(a1);
+    // Gestion des touches du clavier
+    document.onkeydown = function( event )
+    {
+        scene.onKeyDown( event.keyCode ) ;
+        return false ;
+    } ;
 </script>
