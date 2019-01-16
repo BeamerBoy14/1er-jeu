@@ -1,5 +1,3 @@
-
-
 class AcPhysic extends Acteur
 {
     constructor( fichierImage, x, y, vx=0, vy=0, ax=0, ay=0 )
@@ -37,14 +35,39 @@ class AcPhysic extends Acteur
         // Traiter la ou les collisions éventuelles
         if( collisions.length > 0 )
         {
-            if( collisions[0] instanceof Sol )
-            {
-                this.vy = 0 ;
+            if( this instanceof Bonhomme )
+            { 
+                if( collisions[0] instanceof Sol )
+                {
+                    this.vy = 0 ;
+                }
+                if( collisions[0] instanceof Mur )
+                {
+                    this.vy = 0 ;
+                }
             }
-            if( collisions[0] instanceof Mur )
+
+            if( this instanceof Bombe )
             {
-                this.vy = 0 ;
+                if( collisions[0] instanceof Sol )
+                {
+                    collisions.forEach( (cible)=>
+                    {
+                        uneScene.remove( cible ) ;
+                    }) ;
+
+                    uneScene.remove( this ) ;
+                }
+                if( collisions[0] instanceof Mur )
+                {
+                    for( let i=0 ; i<collisions.length; i++ )
+                    {
+                        uneScene.remove( collisions[i] ) ;
+                    }
+                    uneScene.remove( this ) ;
+                }
             }
+
         }
         
         // On incremente la position à partir de la vitesse

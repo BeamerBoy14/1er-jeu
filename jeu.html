@@ -7,6 +7,7 @@
 <script src="AcAnimated.js"></script>
 <script src="Eau.js"></script>
 <script src="Bonhomme.js"></script>
+<script src="Bombe.js"></script>
 <script src="Mur.js"></script>
 
 
@@ -48,46 +49,45 @@
     }
     */
 
-    var m = new Mur( 500, 10 ) ;
-    scene.add( m ) ;
-    scene.remove( m ) ;
+// Test d'un bohomme
+var bonhomme = new Bonhomme( 400, 299 ) ;
 
+scene.add( bonhomme ) ;
 
-    // Test d'un bohomme
-    var bonhomme = new Bonhomme( 400, 299 ) ;
+var x = 200 ;
 
-    scene.add( bonhomme ) ;
+// Ajout d'un mur
+scene.add( new Mur( x+8*32, 300 )) ;
+scene.add( new Mur( x+8*32, 268 )) ;
 
-    var x = 200 ;
+// Creation d'un sol
+for( var i=0 ; i<20 ; i++ )
+{
+    scene.add( new Sol( x, 332 ) ) ;
+    x += 32 ;
+}
 
-    // Ajout d'un mur
-    scene.add( new Mur( x+8*32, 300 )) ;
-    scene.add( new Mur( x+8*32, 268 )) ;
+//Creation d'un petit lac
+for( var i=0 ; i<10 ; i++ )
+{
+    scene.add( new Eau( x, 332 ) ) ;
+    x += 32 ;
+}
 
-    // Creation d'un sol
-    for( var i=0 ; i<20 ; i++ )
-    {
-        scene.add( new Sol( x, 332 ) ) ;
-        x += 32 ;
-    }
-    
-    //Creation d'un petit lac
-    for( var i=0 ; i<10 ; i++ )
-    {
-        scene.add( new Eau( x, 332 ) ) ;
-        x += 32 ;
-    }
+// Ajout d'une bombe
+scene.add( new Bombe( 250, 140 ) ) ;
+scene.add( new Bombe( 200+8*32+5, 51 ) ) ;
 
-    // Creation d'un timer tous les 10 ms
-    setInterval( function()
-    {
-        scene.onTimer() ;
-    }, 10 ) ;
+// Creation d'un timer tous les 10 ms
+setInterval( function()
+{
+    scene.onTimer() ;
+}, 10 ) ;
 
-    // Gestion des touches du clavier
-    document.onkeydown = function( event )
-    {
-        scene.onKeyDown( event.keyCode ) ;
-        return false ;
-    } ;
+// Gestion des touches du clavier
+document.onkeydown = function( event )
+{
+    scene.onKeyDown( event.keyCode ) ;
+    return false ;
+} ;
 </script>

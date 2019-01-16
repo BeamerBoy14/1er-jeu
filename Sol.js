@@ -1,5 +1,3 @@
-
-
 class Sol extends Acteur
 {
     constructor( x, y )
