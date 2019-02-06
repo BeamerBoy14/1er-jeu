@@ -6,6 +6,7 @@
 <script src="Balle.js"></script>
 <script src="AcAnimated.js"></script>
 <script src="CmStop.js"></script>
+<script src="CmExplosion.js"></script>
 <script src="Eau.js"></script>
 <script src="Bonhomme.js"></script>
 <script src="Mur.js"></script>
@@ -17,6 +18,35 @@
 <div id="TerrainDeJeu"></div>
 
 <script>
+    /*
+    // définition de la fonction Toto
+    function Toto( msg )
+    {
+        alert( msg ) ;
+    }
+
+    // définition de la fonction Titi
+    function Titi( msg )
+    {
+        alert( "Titi vous dit " + msg ) ;
+    }
+
+
+    //let f = Toto ; // Copie la référence de la fonction Toto dans la variable f
+    //let f = Titi ; // Copie la référence de la fonction Titi dans la variable f
+    let f = function( msg ) 
+    { 
+        alert( "Fct lambda vous dit " + msg) ; 
+    } ;
+
+    // Appel de la fonction dont la référence est contenue dans
+    // la variable f
+    f( "Bonjour" ) ;
+
+    */
+
+
+
     // On cree une scène
     var scene = new Scene( 100, 50, 1000, 600 ) ;
 
@@ -34,8 +64,33 @@
 
     // Collision entre une Bombe et un Sol
     scene.addCollisionManager( 
-        new CmStop( Bombe, Sol, 
-            CollisionManager.ByTop )) ;
+        new CmExplosion( Bombe, Sol, 
+            CollisionManager.ByTop, true, 
+            10, -3, 3, -5, 0, 
+            function( x, y, vx, vy )
+            {
+                return new Debris( x, y, vx, vy ) ;
+            } )) ;
+
+    // Collision entre une Bombe et de l'Eau
+    scene.addCollisionManager( 
+        new CmExplosion( Bombe, Eau, 
+            CollisionManager.ByTop, false, 
+            10, -2, 2, -6, 0, 
+            function( x, y, vx, vy )
+            {
+                return new GoutteEau( x, y, vx, vy ) ;
+            } )) ;
+
+    // Collision entre un Bonhomme et de l'Eau
+    scene.addCollisionManager( 
+        new CmExplosion( Bonhomme, Eau, 
+            CollisionManager.ByTop, false,
+            10, -2, 2, -3, 0, 
+            function( x, y, vx, vy )
+            {
+                return new GoutteEau( x, y, vx, vy ) ;
+            } )) ;
 
     /*
     // Test d'instanciation de la classe Acteur

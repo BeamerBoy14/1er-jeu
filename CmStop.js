@@ -70,13 +70,3 @@ class CmStop extends CollisionManager
         acteurMobile.vy = 0 ;
     }
 }
-
-/**
- * Attributs de classe définissant les types de collision de l'acteur
- * mobile sur l'acteur cible, respectivement par la gauche,
- * par le haut, par la droite et par le bas
- */
-CollisionManager.prototype.ByLeft = 0x01 ;
-CollisionManager.prototype.ByTop = 0x02 ;
-CollisionManager.prototype.ByRight = 0x04 ;
-CollisionManager.prototype.ByBottom = 0x08 ;
