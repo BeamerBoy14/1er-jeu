@@ -2,6 +2,7 @@
 <script src="CollisionManager.js"></script>
 <script src="Scene.js"></script>
 <script src="Sol.js"></script>
+<script src="SolElectrique.js"></script>
 <script src="AcPhysic.js"></script>
 <script src="Balle.js"></script>
 <script src="AcAnimated.js"></script>
@@ -55,6 +56,12 @@
     // Collision entre un Bonhomme et un Sol
     scene.addCollisionManager( 
         new CmStop( Bonhomme, Sol, CollisionManager.ByTop )) ;
+
+    
+        // Collision entre un Bonhomme et un SolElectrique
+    scene.addCollisionManager( 
+        new CmStop( Bonhomme, SolElectrique, CollisionManager.ByTop )) ;
+
 
     // Collision entre un Bonhomme et un Mur
     scene.addCollisionManager( 
@@ -160,6 +167,13 @@
     for( var i=0 ; i<20 ; i++ )
     {
         scene.add( new Sol( x, 332 ) ) ;
+        x += 32 ;
+    }
+
+        //Creation d'un sol electrique
+        for( var i=0 ; i<3 ; i++ )
+    {
+        scene.add( new SolElectrique( x, 332 ) ) ;
         x += 32 ;
     }
     
