@@ -49,8 +49,11 @@ class Acteur
         this.y = y ;
 
         // On repositionne l'image
-        this.img.style.left = x ;
-        this.img.style.top = y ;
+        if( this.img )
+        {
+            this.img.style.left = x ;
+            this.img.style.top = y ;
+        }
 
         // Test de sortie de l'acteur de la scène
         var aSupprimer = false ;
@@ -102,4 +105,4 @@ class Acteur
     onKeyDown( uneScene, keyCode )
     {
     }
-} 
+}  
