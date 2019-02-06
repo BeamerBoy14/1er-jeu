@@ -13,6 +13,8 @@ class Bonhomme extends AcAnimated
         x, y, 0, 0, 0, 0.1, 2000000000 ) ;
 
         this.setRange( 0, 2 ) ;
+
+        this.tempsDeVie = 1000 ;
     }
 
     onKeyDown( uneScene, keyCode )

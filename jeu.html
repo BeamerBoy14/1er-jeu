@@ -91,11 +91,12 @@
             {
                 return new GoutteEau( x, y, vx, vy ) ;
             } )) ;
-    
+
+    // Collision entre des GoutteEau et l'Eau
     scene.addCollisionManager( 
         new CmExplosion( GoutteEau, Eau, 
             CollisionManager.ByTop, false, 
-            10, -2, 2, -6, 0));
+            10, -3, 3, -5, 0)) ;
 
     /*
     // Test d'instanciation de la classe Acteur
@@ -137,6 +138,16 @@
     // Test d'un bohomme
     var bonhomme = new Bonhomme( 400, 299 ) ;
 
+    var TerrainDeJeu = document.getElementById("TerrainDeJeu");
+    
+    var newDiv  = document.createElement('div');
+    var newContent = document.createTextNode("Durée de vie : " + bonhomme.tempsDeVie);
+    newDiv.appendChild(newContent);
+
+    // ajoute le nouvel élément créé et son contenu dans le DOM 
+    var currentDiv = document.getElementById("TerrainDeJeu"); 
+    document.body.insertBefore(newDiv, currentDiv); 
+    
     scene.add( bonhomme ) ;
 
     var x = 200 ;
