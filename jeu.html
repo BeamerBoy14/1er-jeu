@@ -91,6 +91,11 @@
             {
                 return new GoutteEau( x, y, vx, vy ) ;
             } )) ;
+    
+    scene.addCollisionManager( 
+        new CmExplosion( GoutteEau, Eau, 
+            CollisionManager.ByTop, false, 
+            10, -2, 2, -6, 0));
 
     /*
     // Test d'instanciation de la classe Acteur
