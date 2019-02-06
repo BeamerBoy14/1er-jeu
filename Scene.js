@@ -19,9 +19,10 @@ class Scene
 
     addCollisionManager( unCollisionManager )
     {
-        this.lesCollisionManagers.push( unCollisionManager ) ;
+        this.lesCollisionManagers.push({collisionManager: unCollisionManager, stop: stop });
+        // this.lesCollisionManagers.push( unCollisionManager ) ;
     }
-
+    /*
     whoCanManageCollision( acteurMobile, acteurCible, collisionType )
     {
         for( let i=0 ; i<this.lesCollisionManagers.length; i++ )
@@ -31,6 +32,35 @@ class Scene
         }
 
         return null ;
+    }
+    */
+
+    manageCollision( acteurMobile, acteurCible, collisionType )
+    {
+        for( let i=0 ; i<this.lesCollisionManagers.length; i++ )
+        {
+            let cm = this.lesCollisionManagers[i] ;
+
+            if( cm.collisionManager.canManageCollision( acteurMobile, acteurCible, collisionType ) )
+            {
+                switch( collisionType )
+                {
+                    case CollisionManager.ByLeft:
+                        cm.collisionManager.manageCollisionByLeft( this, acteurMobile, acteurCible ) ;
+                        break;
+                    case CollisionManager.ByRight:
+                        cm.collisionManager.manageCollisionByRight( this, acteurMobile, acteurCible ) ;
+                        break;
+                    case CollisionManager.ByTop:
+                        cm.collisionManager.manageCollisionByTop( this, acteurMobile, acteurCible ) ;
+                        break;
+                    case CollisionManager.ByBottom:
+                        cm.collisionManager.manageCollisionByBottom( this, acteurMobile, acteurCible ) ;
+                        break;
+                }
+                if( cm.stop ) return ;
+            }
+        }
     }
 
     add( unActeur )

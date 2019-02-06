@@ -28,25 +28,35 @@ class AcPhysic extends Acteur
             {
                 if( cible.x > this.x )
                 {
+
+                    uneScene.manageCollision(this, cible, CollisionManager.ByLeft);
+
                     // Collision par la gauche, on cherche le premier 
                     // gestionnaire de collision capable de traiter la 
                     // collision entre l'acteur mobile this et l'acteur
                     // cible par la gauche.
+                    /*
                     let cm = uneScene.whoCanManageCollision( this, cible,
                         CollisionManager.ByLeft ) ;
-
+                    */
                     // On demande au gestionnaire de collision de gérer la
                     // collision par la gauche entre l'acteur mobile et la
                     // cible
+                    /*
                     if( cm ) cm.manageCollisionByLeft( uneScene, this, cible ) ;
+                    */
                 }
                 else
                 {
+                    
+                    uneScene.manageCollision(this, cible, CollisionManager.ByRight);
                     // Collision par la droite
+                    /*
                     let cm = uneScene.whoCanManageCollision( this, cible,
                         CollisionManager.ByRight ) ;
 
                     if( cm ) cm.manageCollisionByRight( uneScene, this, cible ) ;
+                    */
                 }
             }) ;
         }
@@ -63,25 +73,29 @@ class AcPhysic extends Acteur
             {
                 if( cible.y > this.y )
                 {
+                    uneScene.manageCollision(this, cible, CollisionManager.ByTop);
                     // Collision par le haut, on cherche le premier 
                     // gestionnaire de collision capable de traiter la 
                     // collision entre l'acteur mobile this et l'acteur
                     // cible par le haut.
+                    /*
                     let cm = uneScene.whoCanManageCollision( this, cible,
-                        CollisionManager.ByTop ) ;
+                        CollisionManager.ByTop ) ;*/
 
                     // On demande au gestionnaire de collision de gérer la
                     // collision par le haut entre l'acteur mobile et la
                     // cible
-                    if( cm ) cm.manageCollisionByTop( uneScene, this, cible ) ;
+                    // if( cm ) cm.manageCollisionByTop( uneScene, this, cible ) ;
                 }
                 else
                 {
+                    uneScene.manageCollision( this, cible, CollisionManager.ByBottom );
+
                     // Collision par le bas
-                    let cm = uneScene.whoCanManageCollision( this, cible,
+                    /*let cm = uneScene.whoCanManageCollision( this, cible,
                         CollisionManager.ByBottom ) ;
 
-                    if( cm ) cm.manageCollisionByBottom( uneScene, this, cible ) ;
+                    if( cm ) cm.manageCollisionByBottom( uneScene, this, cible ) ;*/
                 }
             }) ;
         }
