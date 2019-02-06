@@ -1,5 +1,3 @@
-
-
 class Balle extends AcPhysic
 {
     constructor( x, y, vx, vy )

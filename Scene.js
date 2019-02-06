@@ -1,5 +1,3 @@
-
-
 class Scene
 {
     constructor( x, y, width, height )
@@ -9,10 +7,30 @@ class Scene
         // les acteurs présents dans la scène.
         this.lesActeurs = new Array() ;
 
+        // On cree un tableau pour stocker une liste de gestionnaire 
+        // de collision.
+        this.lesCollisionManagers = new Array() ;
+
         this.x = x ;
         this.y = y ;
         this.width = width ;
         this.height = height ;
+    }
+
+    addCollisionManager( unCollisionManager )
+    {
+        this.lesCollisionManagers.push( unCollisionManager ) ;
+    }
+
+    whoCanManageCollision( acteurMobile, acteurCible, collisionType )
+    {
+        for( let i=0 ; i<this.lesCollisionManagers.length; i++ )
+        {
+            if( this.lesCollisionManagers[i].canManageCollision( acteurMobile, acteurCible, collisionType ) )
+                return this.lesCollisionManagers[i] ;
+        }
+
+        return null ;
     }
 
     add( unActeur )

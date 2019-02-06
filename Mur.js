@@ -1,5 +1,3 @@
-
-
 class Mur extends Acteur
 {
     constructor( x, y )

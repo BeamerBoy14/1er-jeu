@@ -1,5 +1,3 @@
-
-
 class Eau extends AcAnimated
 {
     constructor( x, y )

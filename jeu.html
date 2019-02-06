@@ -1,14 +1,17 @@
-
 <script src="Acteur.js"></script>
+<script src="CollisionManager.js"></script>
 <script src="Scene.js"></script>
 <script src="Sol.js"></script>
 <script src="AcPhysic.js"></script>
 <script src="Balle.js"></script>
 <script src="AcAnimated.js"></script>
+<script src="CmStop.js"></script>
 <script src="Eau.js"></script>
 <script src="Bonhomme.js"></script>
-<script src="Bombe.js"></script>
 <script src="Mur.js"></script>
+<script src="Bombe.js"></script>
+<script src="Debris.js"></script>
+<script src="GoutteEau.js"></script>
 
 
 <div id="TerrainDeJeu"></div>
@@ -16,6 +19,23 @@
 <script>
     // On cree une scène
     var scene = new Scene( 100, 50, 1000, 600 ) ;
+
+    // Création des différents gestionnaires de collision
+
+    // Collision entre un Bonhomme et un Sol
+    scene.addCollisionManager( 
+        new CmStop( Bonhomme, Sol, CollisionManager.ByTop )) ;
+
+    // Collision entre un Bonhomme et un Mur
+    scene.addCollisionManager( 
+        new CmStop( Bonhomme, Mur, 
+            CollisionManager.ByTop | 
+            CollisionManager.ByLeft | CollisionManager.ByRight )) ;
+
+    // Collision entre une Bombe et un Sol
+    scene.addCollisionManager( 
+        new CmStop( Bombe, Sol, 
+            CollisionManager.ByTop )) ;
 
     /*
     // Test d'instanciation de la classe Acteur
@@ -49,45 +69,50 @@
     }
     */
 
-// Test d'un bohomme
-var bonhomme = new Bonhomme( 400, 299 ) ;
+    var m = new Mur( 500, 10 ) ;
+    scene.add( m ) ;
+    scene.remove( m ) ;
 
-scene.add( bonhomme ) ;
 
-var x = 200 ;
+    // Test d'un bohomme
+    var bonhomme = new Bonhomme( 400, 299 ) ;
 
-// Ajout d'un mur
-scene.add( new Mur( x+8*32, 300 )) ;
-scene.add( new Mur( x+8*32, 268 )) ;
+    scene.add( bonhomme ) ;
 
-// Creation d'un sol
-for( var i=0 ; i<20 ; i++ )
-{
-    scene.add( new Sol( x, 332 ) ) ;
-    x += 32 ;
-}
+    var x = 200 ;
 
-//Creation d'un petit lac
-for( var i=0 ; i<10 ; i++ )
-{
-    scene.add( new Eau( x, 332 ) ) ;
-    x += 32 ;
-}
+    // Ajout d'un mur
+    scene.add( new Mur( x+8*32, 300 )) ;
+    scene.add( new Mur( x+8*32, 268 )) ;
 
-// Ajout d'une bombe
-scene.add( new Bombe( 250, 140 ) ) ;
-scene.add( new Bombe( 200+8*32+5, 51 ) ) ;
+    // Creation d'un sol
+    for( var i=0 ; i<20 ; i++ )
+    {
+        scene.add( new Sol( x, 332 ) ) ;
+        x += 32 ;
+    }
+    
+    //Creation d'un petit lac
+    for( var i=0 ; i<10 ; i++ )
+    {
+        scene.add( new Eau( x, 332 ) ) ;
+        x += 32 ;
+    }
 
-// Creation d'un timer tous les 10 ms
-setInterval( function()
-{
-    scene.onTimer() ;
-}, 10 ) ;
+    // Ajout d'une bombe
+    scene.add( new Bombe( 250, 140 ) ) ;
+    scene.add( new Bombe( x - 80, 140 ) ) ;
 
-// Gestion des touches du clavier
-document.onkeydown = function( event )
-{
-    scene.onKeyDown( event.keyCode ) ;
-    return false ;
-} ;
+    // Creation d'un timer tous les 10 ms
+    setInterval( function()
+    {
+        scene.onTimer() ;
+    }, 10 ) ;
+
+    // Gestion des touches du clavier
+    document.onkeydown = function( event )
+    {
+        scene.onKeyDown( event.keyCode ) ;
+        return false ;
+    } ;
 </script>

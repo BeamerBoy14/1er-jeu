@@ -75,16 +75,16 @@ class Acteur
     isCollisioningWith( unActeur )
     {
         // Cas où unActeur est à gauche du bord gauche de this
-        if( unActeur.x + unActeur.width < this.x ) return false ;
+        if( unActeur.x + unActeur.width <= this.x ) return false ;
 
         // Cas où unActeur est à droite du bord droite de this
-        if( unActeur.x > this.x + this.width ) return false ;
+        if( unActeur.x >= this.x + this.width ) return false ;
 
         // Cas où unActeur est au dessus du bord supérieur de this
-        if( unActeur.y + unActeur.height < this.y ) return false ;
+        if( unActeur.y + unActeur.height <= this.y ) return false ;
 
         // Cas où unActeur est en dessous du bord inférieur de this
-        if( unActeur.y > this.y + this.height ) return false ;
+        if( unActeur.y >= this.y + this.height ) return false ;
 
         // Le reste des cas ne sont que des collisions
         return true ;
@@ -103,4 +103,3 @@ class Acteur
     {
     }
 } 
-

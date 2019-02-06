@@ -1,5 +1,3 @@
-
-
 class AcAnimated extends AcPhysic
 {
     // fichierImages: tableau contenant des noms de fichier d'image

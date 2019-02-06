@@ -1,5 +1,3 @@
-
-
 class Bonhomme extends AcAnimated
 {
     constructor( x, y )

@@ -18,56 +18,72 @@ class AcPhysic extends Acteur
     {
         // Test de collision sur un déplacement horizontal
         this.x += this.vx ;
-        var collisions = uneScene.whoIsCollisioningWith( this ) ;
+        var cibles = uneScene.whoIsCollisioningWith( this ) ;
         this.x -= this.vx ;
 
         // Traiter la ou les collisions éventuelles
-        if( collisions.length > 0 )
+        if( cibles.length > 0 )
         {
-            this.vx = 0 ;
+            cibles.forEach( (cible)=>
+            {
+                if( cible.x > this.x )
+                {
+                    // Collision par la gauche, on cherche le premier 
+                    // gestionnaire de collision capable de traiter la 
+                    // collision entre l'acteur mobile this et l'acteur
+                    // cible par la gauche.
+                    let cm = uneScene.whoCanManageCollision( this, cible,
+                        CollisionManager.ByLeft ) ;
+
+                    // On demande au gestionnaire de collision de gérer la
+                    // collision par la gauche entre l'acteur mobile et la
+                    // cible
+                    if( cm ) cm.manageCollisionByLeft( uneScene, this, cible ) ;
+                }
+                else
+                {
+                    // Collision par la droite
+                    let cm = uneScene.whoCanManageCollision( this, cible,
+                        CollisionManager.ByRight ) ;
+
+                    if( cm ) cm.manageCollisionByRight( uneScene, this, cible ) ;
+                }
+            }) ;
         }
 
         // Test de collision sur un déplacement vertical
         this.y += this.vy ;
-        collisions = uneScene.whoIsCollisioningWith( this ) ;
+        cibles = uneScene.whoIsCollisioningWith( this ) ;
         this.y -= this.vy ;
 
         // Traiter la ou les collisions éventuelles
-        if( collisions.length > 0 )
+        if( cibles.length > 0 )
         {
-            if( this instanceof Bonhomme )
-            { 
-                if( collisions[0] instanceof Sol )
-                {
-                    this.vy = 0 ;
-                }
-                if( collisions[0] instanceof Mur )
-                {
-                    this.vy = 0 ;
-                }
-            }
-
-            if( this instanceof Bombe )
+            cibles.forEach( (cible)=>
             {
-                if( collisions[0] instanceof Sol )
+                if( cible.y > this.y )
                 {
-                    collisions.forEach( (cible)=>
-                    {
-                        uneScene.remove( cible ) ;
-                    }) ;
+                    // Collision par le haut, on cherche le premier 
+                    // gestionnaire de collision capable de traiter la 
+                    // collision entre l'acteur mobile this et l'acteur
+                    // cible par le haut.
+                    let cm = uneScene.whoCanManageCollision( this, cible,
+                        CollisionManager.ByTop ) ;
 
-                    uneScene.remove( this ) ;
+                    // On demande au gestionnaire de collision de gérer la
+                    // collision par le haut entre l'acteur mobile et la
+                    // cible
+                    if( cm ) cm.manageCollisionByTop( uneScene, this, cible ) ;
                 }
-                if( collisions[0] instanceof Mur )
+                else
                 {
-                    for( let i=0 ; i<collisions.length; i++ )
-                    {
-                        uneScene.remove( collisions[i] ) ;
-                    }
-                    uneScene.remove( this ) ;
-                }
-            }
+                    // Collision par le bas
+                    let cm = uneScene.whoCanManageCollision( this, cible,
+                        CollisionManager.ByBottom ) ;
 
+                    if( cm ) cm.manageCollisionByBottom( uneScene, this, cible ) ;
+                }
+            }) ;
         }
         
         // On incremente la position à partir de la vitesse
